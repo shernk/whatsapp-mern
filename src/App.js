@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Chat, Sidebar } from "./components";
 import Pusher from "pusher-js";
 import axios from "./axios";
 import "./App.css";
+import Login from "./components/login/login";
+import { useStateValue } from "./utils/stateprovider";
 
-function App() {
+const App = () => {
   const [messages, setMessages] = useState([]);
+  const [{ user }, dispatch] = useStateValue();
 
   useEffect(() => {
     axios.get("/messages/sync").then((res) => {
@@ -34,13 +38,34 @@ function App() {
   return (
     <>
       <div className="app">
-        <div className="app__body">
-          <Sidebar />
-          <Chat messages={messages} />
-        </div>
+        {
+        /* !user ? (
+          <div>
+            <Router>
+              <Routes>
+                <Route path="/" element={<Login />} />
+              </Routes>
+            </Router>
+          </div>
+        ) 
+        :  */
+        (
+          <div className="app__body">
+            <Router>
+              <Sidebar />
+              <Routes>
+                <Route
+                  path="/rooms/:roomId"
+                  element={<Chat messages={messages} />}
+                />
+                <Route path="/" element={<Chat messages={messages} />} />
+              </Routes>
+            </Router>
+          </div>
+        )}
       </div>
     </>
   );
-}
+};
 
 export default App;

@@ -3,7 +3,7 @@ import axios from "../../axios";
 import "./chat.css";
 import { Avatar } from "@material-ui/core";
 
-export default function Chat({ messages }) {
+const Chat = ({ messages }) => {
   const [input, setInput] = useState("");
 
   const sendMessage = async (e) => {
@@ -57,3 +57,5 @@ export default function Chat({ messages }) {
     </div>
   );
 }
+
+export default Chat;
