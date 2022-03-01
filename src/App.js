@@ -38,8 +38,7 @@ const App = () => {
   return (
     <>
       <div className="app">
-        {
-        /* !user ? (
+        {!user ? (
           <div>
             <Router>
               <Routes>
@@ -47,9 +46,7 @@ const App = () => {
               </Routes>
             </Router>
           </div>
-        ) 
-        :  */
-        (
+        ) : (
           <div className="app__body">
             <Router>
               <Sidebar />
